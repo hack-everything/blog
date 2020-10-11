@@ -1,0 +1,168 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=2000">
+    <meta name="description" content="Sourfruit's 'blog'. Software developer by day, hacker by night. New Yorker all time. Page = Blog">
+    <meta name="keywords" content="AI, artifical intelligence, code, python, c#, c++, ruby, sour, fruit, sourfruit, ">
+    <meta name="author" content="Sourfruit">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sourfruit's 'Blog'</title>
+    <link rel='favicon' href='https://doggo.ninja/DtVC5j.png'>
+    <link rel='icon' href='https://doggo.ninja/DtVC5j.png'>
+    <link rel='shortcut icon' href='https://doggo.ninja/DtVC5j.png'>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <meta http-equiv="refresh" content="35000;url=https://m.def-not-hacking-the.net" />
+</head>
+
+<body>
+
+<div class='console-container'><span id='text'></span><div class='console-underscore' id='console'>&#95;</div></div>
+<style>
+    .hidden {
+        opacity:0;
+    }
+    .console-container {
+
+        font-family:monospace;
+        font-size:4em;
+        text-align:center;
+        color:white;
+        margin:auto;
+    }
+    .console-underscore {
+        display:inline-block;
+        position:relative;
+        top:-0.14em;
+        left:10px;
+    }
+</style>
+
+<script>
+    // function([string1, string2],target id,[color1,color2])
+    consoleText(['Fuck Canva'], 'text',['greenyellow']);
+
+    function consoleText(words, id, colors) {
+        if (colors === undefined) colors = ['#fff'];
+        var visible = true;
+        var con = document.getElementById('console');
+        var letterCount = 1;
+        var x = 1;
+        var waiting = false;
+        var target = document.getElementById(id)
+        target.setAttribute('style', 'color:' + colors[0])
+        window.setInterval(function() {
+
+            if (letterCount === 0 && waiting === false) {
+                waiting = true;
+                target.innerHTML = words[0].substring(0, letterCount)
+                window.setTimeout(function() {
+                    var usedColor = colors.shift();
+                    colors.push(usedColor);
+                    var usedWord = words.shift();
+                    words.push(usedWord);
+                    x = 1;
+                    target.setAttribute('style', 'color:' + colors[0])
+                    letterCount += x;
+                    waiting = false;
+                }, 1000)
+            } else if (letterCount === words[0].length + 1 && waiting === false) {
+                waiting = true;
+                window.setTimeout(function() {
+                    x = -1;
+                    letterCount += x;
+                    waiting = false;
+                }, 1000)
+            } else if (waiting === false) {
+                target.innerHTML = words[0].substring(0, letterCount)
+                letterCount += x;
+            }
+        }, 120)
+        window.setInterval(function() {
+            if (visible === true) {
+                con.className = 'console-underscore hidden'
+                visible = false;
+
+            } else {
+                con.className = 'console-underscore'
+
+                visible = true;
+            }
+        }, 400)
+    }
+</script>
+
+<pre>
+                <banner>
+--------------------------------------------------------------------------------------------
+<a href="https://def-not-hacking-the.net">Home</a> | <a href="https://twitter.com/s0urfruit">Twitter</a> | <a href="https://def-not-hacking-the.net/gpt.html">GPT-3.1</a> | <a href="mailto:hello@def-not-hacking-the.net?Subject=Hi%20Sourfruit!" target="_top">Contact</a> | <a href="https://def-not-hacking-the.net/vulns.html">Disclosed Vulnerabilities</a> | <a href="https://blog.def-not-hacking-the.net">Blog</a> | <a href="https://login.def-not-hacking-the.net">Login</a> | <a href="https://projects.def-not-hacking-the.net">Projects</a>
+--------------------------------------------------------------------------------------------
+                </banner>
+            </pre>
+<pre>
+
+<banner>
+//===-- Blog / ~5min read --=======================================================\\
+||                                                                                  ||
+||      Hey there! Welcome to my first 'blog' post. Why did I make it? To 'reveal'? ||
+|| Now if you don't know why, you might think I'm some angry white man since        ||
+|| they suspended my account or didn't reply to my tweet asking for support fast    ||
+|| enough. < None of those reasons are 'mine'. Canva, duped me. Well at least what  ||
+|| I believe is the case. It started with my friend; John telling me about Canva's  ||
+|| Bug Bounty and how many things are in scope, etc. Basic stuff. So naturally, I   ||
+|| going the easiest way for at least a P2 bug: the Canva Chrome Extension. To my   ||
+|| lets call it.... dismay. I couldn't even get its source for some reason. So I go ||
+|| back and of course *.canva.com is in scope. So I try the login page, sure I'll   ||
+|| get something, right? Well, I did. If you disable JavaScript, plop random creds  ||
+|| into the fields, and hit 'Login', you get access to a random account, One even   ||
+|| had 10 Canva credits!                                                            ||
+||                                                                                  ||
+||     It was at thia time I was convinced to use BugCrowd. I made an account wrote ||
+|| a report and hit 'Submit'. A few hours later they reply they were unable to      ||
+|| replicate the issue. Well that was suspicious, my replication instructions were  ||
+|| very clear! Here they are by the way:                                            ||
+||                                                                                  ||
+||    1. Use Apple's Safari Browser                                                 ||
+||    2. Disable JavaScript via Develop > Disable JavaScript                        ||
+||    3. Go to the Canva Login Page ['https://www.canva.com/login']                 ||
+||    4. Enter any credentials for the Email and Password fields                    ||
+||    5. Click 'Login'. On Safari; it is not grayed-out. On other browsers, it is.  ||
+||    Observe that you will be logged into a seemingly random account every-time, - ||
+||    performing a full Account Takeover.                                           ||
+||                                                                                  ||
+||      Seems pretty clear, doesn't it? Well I reply with some additional details.  ||
+|| I resolved their blocker and I thought that was the end of it. It wasn't.        ||
+|| Again, they came back, (this time a different 'team' member) stating the same.   ||
+||                                                                                  ||
+||      I try my bug again. This time I get a Error 400. Whew, its fixed. But then, ||
+|| I thought about it. Errors, like these, don't fix themselves. Unless I'm insane, ||
+|| Someone had to of fixed it. And I reported it. They quite frankly lied about     ||
+|| not being able to replicate it to fix it quietly. I didn't even report it for    ||
+|| the money ($4,500 - $6,000) ! Now I'm not releasing my *entire* report or their  ||
+|| replies to me on BugCrowd, YET. They're "contacting the appropriate team" and    ||
+|| I want to see what they formulate. This is the end, to be continued. Peace,      ||
+||                                                                                  ||
+||                                                                                  ||
+||     - SOURFRUIT                                                                  ||
+||                                                                                  ||
+\\==================================================================================//
+</banner>
+            </pre>
+
+
+
+<script src="script.js"></script>
+
+
+
+<center>
+    <footer>
+        <p>&#169; Copywrong 2020-Present, Sourfruit, All Rights Reserved.</p>
+    </footer>
+</center>
+
+</div>
+</body>
+
+</html>
